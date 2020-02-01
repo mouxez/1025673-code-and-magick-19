@@ -43,7 +43,7 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-    ctx.fillStyle = players[i] === 'Вы' ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : getRandomColors(players[i]);
+    ctx.fillStyle = players[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : getRandomColors(players[i]);
 
     ctx.fillRect(INDENT_LEFT + BAR_INDENT * i, CLOUD_HEIGHT - (barHeight * times[i] / maxTime) - FONT_GAP, BAR_WIDTH, barHeight * times[i] / maxTime);
     ctx.fillStyle = '#000';
