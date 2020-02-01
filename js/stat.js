@@ -7,8 +7,10 @@ var CLOUD_Y = 10;
 var GAP = 10;
 var BAR_WIDTH = 40;
 var FONT_GAP = 16;
-var COLUMN_GAP = 50;
-var barHeight = CLOUD_HEIGHT - 4 * FONT_GAP - 6 * GAP;
+var barHeight = 150;
+var BAR_INDENT = 90;
+var INDENT_LEFT = 150;
+var GAP_TOP = 40;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -25,36 +27,27 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
+var getRandomColors = function () {
+  return 'hsl(230,' + Math.round(Math.random() * 100) + '% , 50%)';
+};
+
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', CLOUD_X + 4 * GAP, CLOUD_Y + GAP * 3);
-  ctx.fillText('Список результатов:', CLOUD_X + 4 * GAP, CLOUD_Y + GAP * 4 + FONT_GAP);
+  ctx.fillText('Ура вы победили!', INDENT_LEFT - GAP, GAP_TOP);
+  ctx.fillText('Список результатов:', INDENT_LEFT - GAP, GAP_TOP + GAP + FONT_GAP);
 
   var maxTime = getMaxElement(times);
 
-  var getRandomIntInclusive = function (min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
-  var getRandomColors = function () {
-    ctx.fillStyle = 'hsl(230,' + getRandomIntInclusive(1, 100) + '% , 50%)';
-  };
-
   for (var i = 0; i < players.length; i++) {
-    if (players[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      ctx.fillStyle = getRandomColors(players[i]);
-    }
-    ctx.fillRect(CLOUD_X + GAP * 5 + (COLUMN_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT - (barHeight * times[i] / maxTime) - GAP * 2, BAR_WIDTH, barHeight * times[i] / maxTime);
+    ctx.fillStyle = players[i] === 'Вы' ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : getRandomColors(players[i]);
+
+    ctx.fillRect(INDENT_LEFT + BAR_INDENT * i, CLOUD_HEIGHT - (barHeight * times[i] / maxTime) - FONT_GAP, BAR_WIDTH, barHeight * times[i] / maxTime);
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.floor(times[i]), CLOUD_X + GAP * 5 + (COLUMN_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT - (barHeight * times[i] / maxTime) - GAP * 3);
-    ctx.fillText(players[i], CLOUD_X + GAP * 5 + (COLUMN_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT);
+    ctx.fillText(Math.floor(times[i]), INDENT_LEFT + BAR_INDENT * i, CLOUD_HEIGHT - (barHeight * times[i] / maxTime) - FONT_GAP - GAP);
+    ctx.fillText(players[i], INDENT_LEFT + BAR_INDENT * i, CLOUD_HEIGHT);
   }
 };
