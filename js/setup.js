@@ -39,9 +39,9 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var docFrag = document.createDocumentFragment();
-for (var n = 0; n < randomWizard.length; n++) {
-  docFrag.appendChild(renderWizard(randomWizard[n]));
+var fragment = document.createDocumentFragment();
+for (var j = 0; j < randomWizard.length; j++) {
+  fragment.appendChild(renderWizard(randomWizard[j]));
 }
 
-similarListElement.appendChild(docFrag);
+similarListElement.appendChild(fragment);
