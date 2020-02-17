@@ -103,7 +103,8 @@ userNameInput.addEventListener('invalid', function () {
 
 // изменяет цвет мантии
 var wizardCoat = document.querySelector('.wizard-coat');
-var wizardCoatColor = document.querySelector('.wizard-coat-color');
+var wizardCoatColor = document.querySelector('input[name=coat-color]');
+
 wizardCoat.addEventListener('click', function () {
   var currentColor = chooseRandomElement(WIZARD_COAT_COLORS);
   wizardCoat.style.fill = currentColor;
@@ -112,7 +113,8 @@ wizardCoat.addEventListener('click', function () {
 
 // изменяет цвет глаз
 var wizardEyes = document.querySelector('.wizard-eyes');
-var wizardEyesColor = document.querySelector('.wizard-eyes-color');
+var wizardEyesColor = document.querySelector('input[name=eyes-color]');
+
 wizardEyes.addEventListener('click', function () {
   var currentColor = chooseRandomElement(EYES_COLORS);
   wizardEyes.style.fill = currentColor;
@@ -121,7 +123,8 @@ wizardEyes.addEventListener('click', function () {
 
 // изменяет цвет файербола
 var setupFireball = document.querySelector('.setup-fireball-wrap');
-var fireballColor = document.querySelector('.fireball-color');
+var fireballColor = document.querySelector('input[name=fireball-color]');
+
 setupFireball.addEventListener('click', function () {
   var currentColor = chooseRandomElement(FIRE_BALL_COLORS);
   setupFireball.style.background = currentColor;
