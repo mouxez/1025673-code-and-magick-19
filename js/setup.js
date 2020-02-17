@@ -88,35 +88,42 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 // проверяет корректтость данных
-var MIN_NAME_LENGTH = 2;
 var userNameInput = setup.querySelector('.setup-user-name');
-userNameInput.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value.length < MIN_NAME_LENGTH) {
-    target.setCustomValidity(
-        'Имя должно состоять минимум из ' + MIN_NAME_LENGTH + '-х символов');
+userNameInput.addEventListener('invalid', function () {
+  if (userNameInput.validity.tooShort) {
+    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userNameInput.validity.tooLong) {
+    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (userNameInput.validity.valueMissing) {
+    userNameInput.setCustomValidity('Обязательное поле');
   } else {
-    target.setCustomValidity('');
+    userNameInput.setCustomValidity('');
   }
 });
 
 // изменяет цвет мантии
 var wizardCoat = document.querySelector('.wizard-coat');
+var wizardCoatColor = document.querySelector('.wizard-coat-color');
 wizardCoat.addEventListener('click', function () {
-  wizardCoat.style.fill = chooseRandomElement(WIZARD_COAT_COLORS);
-  // доработка записи в свойство value скрытого инпута
+  var currentColor = chooseRandomElement(WIZARD_COAT_COLORS);
+  wizardCoat.style.fill = currentColor;
+  wizardCoatColor.value = currentColor;
 });
 
 // изменяет цвет глаз
 var wizardEyes = document.querySelector('.wizard-eyes');
+var wizardEyesColor = document.querySelector('.wizard-eyes-color');
 wizardEyes.addEventListener('click', function () {
-  wizardEyes.style.fill = chooseRandomElement(EYES_COLORS);
-  // доработка записи в свойство value скрытого инпута
+  var currentColor = chooseRandomElement(EYES_COLORS);
+  wizardEyes.style.fill = currentColor;
+  wizardEyesColor.value = currentColor;
 });
 
 // изменяет цвет файербола
 var setupFireball = document.querySelector('.setup-fireball-wrap');
+var fireballColor = document.querySelector('.fireball-color');
 setupFireball.addEventListener('click', function () {
-  setupFireball.style.background = chooseRandomElement(FIRE_BALL_COLORS);
-  // доработка записи в свойство value скрытого инпута
+  var currentColor = chooseRandomElement(FIRE_BALL_COLORS);
+  setupFireball.style.background = currentColor;
+  fireballColor.value = currentColor;
 });
