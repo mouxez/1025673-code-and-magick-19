@@ -63,25 +63,29 @@
     <div class="demo"></div>
 
     <div class="setup-open">
-      <img src="./img/user-1.jpg" class="setup-open-icon">
+      <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="0">
     </div>
   </header>
 
   <div class="overlay setup hidden">
-    <form class="setup-wizard-form" method="post" enctype="multipart/form-data" autocomplete="off">
+    <form class="setup-wizard-form"
+    method="post"
+    enctype="multipart/form-data"
+    action="https://js.dump.academy/code-and-magick"
+    autocomplete="off">
 
       <div class="setup-title">
         <div class="setup-user">
           <div class="upload">
             <img class="setup-user-pic" src="./img/user-1.jpg" />
-            <input type="file" name="avatar">
+            <input type="file" name="avatar" accept="image/png, image/jpeg">
           </div>
           <label>
-            <input type="text" name="username" maxlength="25" required class="setup-user-name" value="Синий Пендальф" />
+            <input type="text" name="username" minlength="2" maxlength="25" required class="setup-user-name" value="Синий Пендальф" />
           </label>
         </div>
 
-        <span class="setup-close">&times;</span>
+        <span class="setup-close" tabindex="0">&times;</span>
       </div>
 
 
