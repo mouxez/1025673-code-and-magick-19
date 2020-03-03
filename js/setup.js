@@ -22,6 +22,9 @@
     return {name: name, coatColor: coatColor, eyesColor: eyesColor};
   };
 
+  // отображает окно случайных магов
+  document.querySelector('.setup-similar').classList.remove('hidden');
+
   var randomWizard = [];
   for (var i = 0; i < window.const.WIZARD_AMOUNT; i++) {
     randomWizard[i] = createRandomWizard(WIZARD_NAMES, WIZARD_SURNAMES, window.colorize.WIZARD_COAT_COLORS, window.colorize.EYES_COLORS);
