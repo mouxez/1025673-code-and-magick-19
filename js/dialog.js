@@ -7,6 +7,13 @@
   var userNameInput = setup.querySelector('.setup-user-name');
   var setupWizardForm = document.querySelector('.setup-wizard-form');
 
+  setupWizardForm.addEventListener('submit', function (evt) {
+    window.save(new FormData(setupWizardForm), function () {
+      setup.classList.add('hidden');
+    });
+    evt.preventDefault();
+  });
+
   var openPopup = function () {
     setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
@@ -87,13 +94,6 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
-
-  setupWizardForm.addEventListener('submit', function (evt) {
-    window.save(new FormData(setupWizardForm), function () {
-      setup.classList.add('hidden');
-    });
-    evt.preventDefault();
   });
 
   window.userNameInput = userNameInput;

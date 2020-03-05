@@ -12,6 +12,7 @@
   var wizardEyesColor = document.querySelector('input[name=eyes-color]');
   var setupFireball = document.querySelector('.setup-fireball-wrap');
   var fireballColor = document.querySelector('input[name=fireball-color]');
+  var similarListElement = document.querySelector('.setup-similar-list');
 
   var createRandomWizard = function () {
     var name = window.util.chooseRandomElement(WIZARD_NAMES) + ' ' + window.util.chooseRandomElement(WIZARD_SURNAMES);
@@ -45,6 +46,35 @@
   //   fragment.appendChild(renderWizard(randomWizard[j]));
   // }
   // similarListElement.appendChild(fragment);
+
+  // выводит загруженных магов
+  var onSuccessLoad = function (wizards) {
+
+    for (var l = 0; l < window.const.WIZARDS_COUNT; l++) {
+      window.const.FRAGMENT.appendChild(window.renderWizard(wizards[l]));
+    }
+    similarListElement.appendChild(window.const.FRAGMENT);
+    window.setup.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  var onErrorLoad = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = window.const.ERROR_POPUP;
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.top = '20%';
+    node.style.fontSize = '40px';
+    node.style.color = '#000000';
+    node.style.width = '300px';
+    node.style.height = '300px';
+    node.style.fontStyle = 'italic';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.backend.load(onSuccessLoad, onErrorLoad);
 
   // изменяет цвет мантии
   window.colorize(wizardCoat, wizardCoatColor, WIZARD_COAT_COLORS);
