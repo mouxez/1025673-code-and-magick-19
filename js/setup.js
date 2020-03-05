@@ -6,8 +6,6 @@
   var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIRE_BALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-  var similarListElement = document.querySelector('.setup-similar-list');
-  var fragment = document.createDocumentFragment();
   var wizardCoat = document.querySelector('.wizard-coat');
   var wizardCoatColor = document.querySelector('input[name=coat-color]');
   var wizardEyes = document.querySelector('.wizard-eyes');
@@ -36,15 +34,17 @@
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
     wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
     return wizardElement;
   };
 
-  for (var j = 0; j < randomWizard.length; j++) {
-    fragment.appendChild(renderWizard(randomWizard[j]));
-  }
-  similarListElement.appendChild(fragment);
+  // убрано на время тестирования backend.js
+  //
+  // for (var j = 0; j < randomWizard.length; j++) {
+  //   fragment.appendChild(renderWizard(randomWizard[j]));
+  // }
+  // similarListElement.appendChild(fragment);
 
   // изменяет цвет мантии
   window.colorize(wizardCoat, wizardCoatColor, WIZARD_COAT_COLORS);
@@ -54,4 +54,6 @@
 
   // изменяет цвет файербола
   window.colorize(setupFireball, fireballColor, FIRE_BALL_COLORS);
+
+  window.renderWizard = renderWizard;
 })();

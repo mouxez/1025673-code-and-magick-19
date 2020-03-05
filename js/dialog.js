@@ -5,7 +5,7 @@
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
   var userNameInput = setup.querySelector('.setup-user-name');
-  window.userNameInput = userNameInput;
+  var setupWizardForm = document.querySelector('.setup-wizard-form');
 
   var openPopup = function () {
     setup.classList.remove('hidden');
@@ -89,4 +89,13 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  setupWizardForm.addEventListener('submit', function (evt) {
+    window.save(new FormData(setupWizardForm), function () {
+      setup.classList.add('hidden');
+    });
+    evt.preventDefault();
+  });
+
+  window.userNameInput = userNameInput;
+  window.setup = setup;
 })();
