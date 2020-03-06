@@ -5,13 +5,19 @@
   var LOAD_URL = 'https://js.dump.academy/code-and-magick/data';
   var xhr = new XMLHttpRequest();
 
+  var StatusCode = {
+    OK: 200,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+    NOT_FOUND: 404,
+    SERVER_ERROR: 500,
+    SERVICE_UNAVAILABLE: 503,
+  };
+
   var save = function (data, onLoad, onError) {
 
     xhr.responseType = 'json';
-    xhr.addEventListener('load', function () {
-      onLoad(xhr.response);
-    });
-    addErrorListener(onError, onLoad);
+    xhr.addEventListener('load', addResponseListener(onLoad, onError, xhr));
     xhr.open('POST', SAVE_URL);
     xhr.send(data);
   };
@@ -25,32 +31,32 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-    addErrorListener(onError, onLoad);
+    addResponseListener(onError, onLoad);
     xhr.timeout = window.const.TIMEOUT_MS;
     xhr.open('GET', LOAD_URL);
     xhr.send();
   };
 
-  var addErrorListener = function (onError, onLoad) {
+  var addResponseListener = function (onError, onLoad) {
 
     xhr.addEventListener('load', function () {
       switch (xhr.status) {
-        case window.const.OK_REQUEST:
+        case StatusCode.OK:
           onLoad(xhr.response);
           break;
-        case window.const.SERVER_ERROR:
+        case StatusCode.SERVER_ERROR:
           onError('Ошибка сервера');
           break;
-        case window.const.SERVICE_UNAVAILABLE:
+        case StatusCode.SERVICE_UNAVAILABLE:
           onError('Сервер временно не доступен');
           break;
-        case window.const.BAD_REQUEST:
+        case StatusCode.BAD_REQUEST:
           onError('Неверный запрос');
           break;
-        case window.const.UNAUTHORIZED:
+        case StatusCode.UNAUTHORIZED:
           onError('Пользователь не авторизован');
           break;
-        case window.const.NOT_FOUND:
+        case StatusCode.NOT_FOUND:
           onError('Не найдено');
           break;
         default:
@@ -59,9 +65,8 @@
     });
   };
 
-  var backend = {
+  window.backend = {
     save: save,
     load: load
   };
-  window.backend = backend;
 })();
