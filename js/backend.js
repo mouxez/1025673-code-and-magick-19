@@ -18,6 +18,10 @@
 
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onLoad, onError, xhr));
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+
     xhr.open('POST', SAVE_URL);
     xhr.send(data);
   };
@@ -25,13 +29,13 @@
   var load = function (onLoad, onError) {
 
     xhr.responseType = 'json';
+    xhr.addEventListener('load', addResponseListener(onLoad, onError, xhr));
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-    addResponseListener(onError, onLoad);
     xhr.timeout = window.const.TIMEOUT_MS;
     xhr.open('GET', LOAD_URL);
     xhr.send();
